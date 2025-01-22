@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web Baca Bahasa Indonesia</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .alphabet {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .letter {
+            padding: 15px;
+            font-size: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .letter:hover {
+            background-color: #ddd;
+        }
+
+        .vowel {
+            color: red; /* Huruf vokal merah */
+        }
+
+        .consonant {
+            color: blue; /* Huruf konsonan biru */
+        }
+
+        #outputDisplay {
+            padding: 20px;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            min-height: 100px;
+            margin-top: 20px;
+            display: inline-block;
+            width: 100%;
+            white-space: nowrap;  /* Prevents wrapping of the text */
+            overflow-x: auto;  /* Enables horizontal scrolling if needed */
+        }
+
+        #outputDisplay span {
+            display: inline-block; /* Makes each letter appear next to each other */
+            margin-right: 10px; /* Adds space between the letters */
+        }
+
+        .team {
+            margin-top: 20px;
+            font-size: 18px;
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .team span {
+            font-size: 18px;
+            padding: 5px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .team span:hover {
+            background-color: #f0f0f0;
+        }
+
+        .team.vowel-team span {
+            color: red;
+        }
+
+        .team.consonant-team span {
+            color: blue;
+        }
+
+        .clear-btn,
+        .space-btn {
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 18px;
+            background-color: #ff4d4d;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .space-btn {
+            background-color: #4CAF50; /* Green for space button */
+        }
+
+        .clear-btn:hover {
+            background-color: #ff1a1a;
+        }
+
+        .space-btn:hover {
+            background-color: #45a049; /* Darker green for space button */
+        }
+
+        .footer {
+            margin-top: 40px;
+            font-size: 14px;
+            color: white;
+            background-color: #4CAF50; /* Latar belakang hijau untuk footer */
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- Huruf A-Z -->
+    <div class="alphabet">
+        <button class="letter vowel" onclick="addLetter('a')">a</button>
+        <button class="letter vowel" onclick="addLetter('e')">e</button>
+        <button class="letter vowel" onclick="addLetter('i')">i</button>
+        <button class="letter vowel" onclick="addLetter('o')">o</button>
+        <button class="letter vowel" onclick="addLetter('u')">u</button>
+        <button class="letter consonant" onclick="addLetter('b')">b</button>
+        <button class="letter consonant" onclick="addLetter('c')">c</button>
+        <button class="letter consonant" onclick="addLetter('d')">d</button>
+        <button class="letter consonant" onclick="addLetter('f')">f</button>
+        <button class="letter consonant" onclick="addLetter('g')">g</button>
+        <button class="letter consonant" onclick="addLetter('h')">h</button>
+        <button class="letter consonant" onclick="addLetter('j')">j</button>
+        <button class="letter consonant" onclick="addLetter('k')">k</button>
+        <button class="letter consonant" onclick="addLetter('l')">l</button>
+        <button class="letter consonant" onclick="addLetter('m')">m</button>
+        <button class="letter consonant" onclick="addLetter('n')">n</button>
+        <button class="letter consonant" onclick="addLetter('p')">p</button>
+        <button class="letter consonant" onclick="addLetter('q')">q</button>
+        <button class="letter consonant" onclick="addLetter('r')">r</button>
+        <button class="letter consonant" onclick="addLetter('s')">s</button>
+        <button class="letter consonant" onclick="addLetter('t')">t</button>
+        <button class="letter consonant" onclick="addLetter('v')">v</button>
+        <button class="letter consonant" onclick="addLetter('w')">w</button>
+        <button class="letter consonant" onclick="addLetter('x')">x</button>
+        <button class="letter consonant" onclick="addLetter('y')">y</button>
+        <button class="letter consonant" onclick="addLetter('z')">z</button>
+    </div>
+
+    <!-- Tim Vokal -->
+    <div class="team vowel-team">
+        <span onclick="addLetter('ai')">ai</span>
+        <span onclick="addLetter('au')">au</span>
+        <span onclick="addLetter('oi')">oi</span>
+    </div>
+
+    <!-- Tim Konsonan -->
+    <div class="team consonant-team">
+        <span onclick="addLetter('ng')">ng</span>
+        <span onclick="addLetter('ny')">ny</span>
+        <span onclick="addLetter('kh')">kh</span>
+    </div>
+
+    <div id="outputDisplay"></div>
+
+    <!-- Tombol Hapus dan Spasi -->
+    <div>
+        <button class="clear-btn" onclick="clearOutput()">Hapus</button>
+        <button class="space-btn" onclick="addSpace()">Spasi</button>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+        <p>© 2025 LilSmart Digital. Semua hak cipta dilindungi.</p>
+    </div>
+
+    <script>
+        function addLetter(letter) {
+            const outputDisplay = document.getElementById('outputDisplay');
+            const newLetter = document.createElement('span');
+            
+            // Menambahkan kelas warna berdasarkan huruf vokal atau konsonan
+            if ('aeiou'.includes(letter)) {
+                newLetter.classList.add('vowel');
+            } else if (['ng', 'ny', 'kh'].includes(letter)) {
+                newLetter.classList.add('consonant');
+            } else {
+                newLetter.classList.add('consonant');
+            }
+
+            newLetter.textContent = letter;
+            outputDisplay.appendChild(newLetter);
+        }
+
+        function addSpace() {
+            const outputDisplay = document.getElementById('outputDisplay');
+            const space = document.createElement('span');
+            space.textContent = ' '; // Add space character
+            outputDisplay.appendChild(space);
+        }
+
+        function clearOutput() {
+            const outputDisplay = document.getElementById('outputDisplay');
+            outputDisplay.innerHTML = '';  // Menghapus semua isi tampilan
+        }
+    </script>
+</body>
+</html>
